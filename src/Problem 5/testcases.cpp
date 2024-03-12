@@ -1,9 +1,3 @@
-/*
-> Horrible unorder_map performance is the leading cause of huge insertion times as size grows.
-> computing the hash for large strings (such as "auction500000") is another reason why insertion time grows.
-*/
-
-
 #include "auction_prices.h"
 #include "flat_hash_map.hpp"
 #include <iostream>
