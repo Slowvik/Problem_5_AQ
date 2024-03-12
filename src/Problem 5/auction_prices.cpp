@@ -7,7 +7,7 @@
 
 > Data structures:
     > keep track of what functionality is needed in what container. 
-    > auction prices class as a whole for example needs a print() method, a lookup based on itemID(string), but no sorting of any kind
+    > auction prices class as a whole for example needs a print() method, a lookup based on itemID(string), but no sorting of any kind. Maybe sorting based on itemID, but it is not explicitly mentioned.
     > an individual orderbook::ask or bid object needs to be sorted based on price(int) and needs a lookup based on auctionID (string)
     > lookups are going to be expensive based on:
         > what the memory allocation of the container is (contiguous memory lookup is faster than random memory lookup)
@@ -23,11 +23,9 @@
         > Hence, for containers that need print() functionality, it might be slightly beneficial to use contiguous memory
         > Keep in mind that even auctionPrices will require a lookup based on itemID whenever an order comes in. Might make sense to use a sorted contiguous container (like vector+sort/priority_queue)
 
-> Compile-time optimisations:
-    > Look into a way to template the addNewOrder function so that bids and asks can be resolved using templates rather than an if-else block
+> Idea: store a hash vs string in a map. No need to delete anything from this, just use it to look up the string corresponding to the hash.
 
 
-> Idea: store a hash vs string in a map. No need to delete anything ever, just use it to look up the string corresponding to the hash.
 */
 #include "auction_prices.h"
 #include <iostream>
@@ -37,32 +35,37 @@
 #include <queue>
 #include <algorithm>
 
+//Hashed AuctionPrices functions:
+
 int AP::AuctionPrices::addNewOrder_hashed(const char* item_ID, const char* auction_ID, int side, int price)
 {
-    return Library[item_ID].addNewOrder_hashed(auction_ID, side, price);
+    hasher_lookup[hasher(item_ID)] = item_ID;
+    return Library[hasher(item_ID)].addNewOrder_hashed(auction_ID, side, price);
 }
-
-// int AP::AuctionPrices::addNewOrder(const char *item_ID, const char *auction_ID, int side, int price)
-// {
-//     return Library[item_ID].addNewOrder(auction_ID, side, price);
-// }
 
 int AP::AuctionPrices::deleteOrder_hashed(const char* item_ID, const char* auction_ID)
 {
-    return Library[item_ID].deleteOrder_hashed(auction_ID);
+    return Library[hasher(item_ID)].deleteOrder_hashed(auction_ID);
 }
 
-// int AP::AuctionPrices::deleteOrder(const char* item_ID, const char* auction_ID)
-// {
-//     return Library[item_ID].deleteOrder(auction_ID);
-// }
+//Unhashed AuctionPrices functions:
+
+int AP::AuctionPrices::addNewOrder(const char *item_ID, const char *auction_ID, int side, int price)
+{
+    return Library[hasher(item_ID)].addNewOrder(auction_ID, side, price);
+}
+
+int AP::AuctionPrices::deleteOrder(const char* item_ID, const char* auction_ID)
+{
+    return Library[hasher(item_ID)].deleteOrder(auction_ID);
+}
 
 int AP::AuctionPrices::print_hashed()
 {
     int print_status = 1;
     for(auto& i: Library)
     {
-        std::cout<<i.first<<":\n";
+        std::cout<<hasher_lookup[i.first]<<":\n";
         print_status = i.second.print_hashed();
         if(print_status == 0)
         {
@@ -109,41 +112,6 @@ int inline AP::orderbook::addNewOrder_hashed(const char* auction_ID, int side, i
     return 0;
 }
 
-// inline int AP::orderbook::addNewOrder(const char *auction_ID, int side, int price)
-// {
-//     if(side == 1)
-//     {
-//         bids.insert(std::make_pair((auction_ID), price));
-//         return 1;
-//     }
-//     else if(side == 2)
-//     {
-//         offers.insert(std::make_pair((auction_ID), price));
-//         return 1;
-//     }
-//     return 0;
-// }
-
-// inline int AP::orderbook::deleteOrder(const char *auction_ID)
-// {
-//     if(bids.empty() && offers.empty())
-//     {
-//         //some message
-//         return 0;
-//     }
-//     if(bids.find(auction_ID)!=bids.end())
-//     {
-//         bids.erase(auction_ID);
-//         return 1;
-//     }
-//     else if(offers.find(auction_ID)!=offers.end())
-//     {
-//         offers.erase(auction_ID);
-//         return 1;
-//     }
-//     return 0;
-// }
-
 int inline AP::orderbook::deleteOrder_hashed(const char* auction_ID)
 {
     if(bids_hashed.empty() && offers_hashed.empty())
@@ -164,6 +132,45 @@ int inline AP::orderbook::deleteOrder_hashed(const char* auction_ID)
     }
     return 0;
 }
+
+//Unhashed Orderbook functions:
+
+inline int AP::orderbook::addNewOrder(const char *auction_ID, int side, int price)
+{
+    if(side == 1)
+    {
+        bids.insert(std::make_pair((auction_ID), price));
+        return 1;
+    }
+    else if(side == 2)
+    {
+        offers.insert(std::make_pair((auction_ID), price));
+        return 1;
+    }
+    return 0;
+}
+
+inline int AP::orderbook::deleteOrder(const char *auction_ID)
+{
+    if(bids.empty() && offers.empty())
+    {
+        //some message
+        return 0;
+    }
+    if(bids.find(auction_ID)!=bids.end())
+    {
+        bids.erase(auction_ID);
+        return 1;
+    }
+    else if(offers.find(auction_ID)!=offers.end())
+    {
+        offers.erase(auction_ID);
+        return 1;
+    }
+    return 0;
+}
+
+
 
 int AP::orderbook::print_hashed()
 {
