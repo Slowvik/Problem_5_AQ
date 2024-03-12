@@ -1,6 +1,7 @@
 #ifndef AUCTIONPRICES_H_
 #define AUCTIONPRICES_H_
 
+#include "flat_hash_map.hpp"
 #include <iostream>
 #include <string>
 #include <map>
@@ -19,8 +20,10 @@ namespace AP
             //std::string item_ID;
             std::map<size_t, int> bids_hashed;
             std::map<size_t, int> offers_hashed;
-            std::map<std::string,int> bids;
-            std::map<std::string,int> offers;
+            //std::map<std::string,int> bids;
+            //std::map<std::string,int> offers;
+            ska::flat_hash_map <std::string, int> bids;
+            ska::flat_hash_map <std::string, int> offers;
             
             
 

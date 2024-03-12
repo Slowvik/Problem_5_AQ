@@ -5,6 +5,7 @@
 
 
 #include "auction_prices.h"
+#include "flat_hash_map.hpp"
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -172,6 +173,24 @@ int main()
     }
     endTime = std::chrono::high_resolution_clock::now();
     std::cout<<std::setw(20) << std::left <<test_size<<std::setw(40) << std::left<< "50:50 <unhashed string, int>:"<<std::setw(20) << std::right <<std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(endTime - startTime).count()<<" ms"<<std::endl;
+
+    //Abseil's flat_hash_map:
+
+    std::cout<<std::endl;
+    ska::flat_hash_map <std::string, int> flat_map;
+
+    startTime = std::chrono::high_resolution_clock::now();
+    for(int i=0; i<test_size/2; i++)
+    {
+        flat_map[string_vec[i]]=i;
+    }
+    for(int i=(test_size/2)-1; i>=0; i--)
+    {
+        flat_map.erase(string_vec[i]);
+    }
+    endTime = std::chrono::high_resolution_clock::now();
+    std::cout<<std::setw(20) << std::left <<test_size<<std::setw(40) << std::left<< "50:50 flat_hash_map <string,int>:"<<std::setw(20) << std::right <<std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(endTime - startTime).count()<<" ms"<<std::endl;
+
 
 
 
