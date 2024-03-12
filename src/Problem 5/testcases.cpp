@@ -11,7 +11,8 @@
 
 int main()
 {
-    AP::AuctionPrices AuctionHouse;std::cout<<"Example print: "<<std::endl;
+    AP::AuctionPrices AuctionHouse;
+    std::cout<<"Example print: "<<std::endl;
 
     AuctionHouse.addNewOrder("item1", "auction1", 1, 100);
     AuctionHouse.addNewOrder("item1", "auction2", 1, 101);
