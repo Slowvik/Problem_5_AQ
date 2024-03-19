@@ -2,12 +2,6 @@
 > The underlying data structure is abseil's flat_hash_map. After running tests with various open-source hash maps, default STL containers and my own hashing functions, it was concluded that abseil's flat_hash_map performs the best with respect to insertions, and marginally worse in case of deletions. Overall, abseil's flat_hash_map is extremely fast and is one of the best candidates for an orderbook data structure.
 */
 #include "auction_prices.h"
-#include <iostream>
-#include <string>
-#include <map>
-#include <unordered_map>
-#include <queue>
-#include <algorithm>
 
 //flat_hash_map AuctionPrices functions:
 

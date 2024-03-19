@@ -4,10 +4,6 @@
 #include "flat_hash_map.hpp"
 #include <iostream>
 #include <string>
-#include <map>
-#include <unordered_map>
-#include <queue>
-#include <algorithm>
 
 namespace AP
 {
@@ -15,9 +11,7 @@ namespace AP
     {
         private:
             ska::flat_hash_map <std::string, int> bids;
-            ska::flat_hash_map <std::string, int> offers;         
-            
-            bool empty();
+            ska::flat_hash_map <std::string, int> offers;
         
         public:
             orderbook();
