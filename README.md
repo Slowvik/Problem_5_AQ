@@ -1,3 +1,5 @@
+Project was originally written in VSCode 1.87.0, compiled and run on Windows 10 with g++12.2.0. Minimum C++ version required: C++11.
+
 A simple orderbook with 3 basic functions is implemented. The functions are as follows:
 
 1. addNewOrder(...): Adds an order with an item_ID, auction_ID, price and side to the orderbook of the correct item.
