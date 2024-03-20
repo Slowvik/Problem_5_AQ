@@ -45,7 +45,7 @@ int main()
         orderbook_bids.insert(std::make_pair(i,i+100));
     }
     auto endTime = std::chrono::high_resolution_clock::now();
-    std::cout<<std::setw(20) << std::left <<test_size<<std::setw(40) << std::left<< "insertion - <int,int>:"<<std::setw(20) << std::right <<std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(endTime - startTime).count()<<" ms"<<std::endl; 
+    std::cout<<std::setw(20) << std::left <<test_size<<std::setw(60) << std::left<< "insertion - <int,int>:"<<std::setw(20) << std::right <<std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(endTime - startTime).count()<<" ms"<<std::endl; 
 
     //Insertion performance of simple <string,int> map:
     std::map<std::string,int> orderbook_bids_string;
@@ -55,7 +55,7 @@ int main()
         orderbook_bids_string.insert(std::make_pair(string_vec[i],i+100));
     }
     endTime = std::chrono::high_resolution_clock::now();
-    std::cout<<std::setw(20) << std::left <<test_size<<std::setw(40) << std::left<< "insertion - <string,int>:"<<std::setw(20) << std::right <<std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(endTime - startTime).count()<<" ms"<<std::endl; 
+    std::cout<<std::setw(20) << std::left <<test_size<<std::setw(60) << std::left<< "insertion - <string,int>:"<<std::setw(20) << std::right <<std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(endTime - startTime).count()<<" ms"<<std::endl; 
 
     //Insertion performance for flat_hash_map
     AP::AuctionPrices House2;
@@ -68,7 +68,7 @@ int main()
         int insert_status = House2.addNewOrder(i_ID.c_str(), string_vec[i].c_str(), 1, i+100);
     }
     endTime = std::chrono::high_resolution_clock::now();
-    std::cout<<std::setw(20) << std::left <<test_size<<std::setw(40) << std::left<< "insertion - AuctionPrices with flat_hash_map:"<<std::setw(20) << std::right <<std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(endTime - startTime).count()<<" ms"<<std::endl;
+    std::cout<<std::setw(20) << std::left <<test_size<<std::setw(60) << std::left<< "insertion - AuctionPrices with flat_hash_map:"<<std::setw(20) << std::right <<std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(endTime - startTime).count()<<" ms"<<std::endl;
 
     std::cout<<std::endl;
 
@@ -84,7 +84,7 @@ int main()
         orderbook_bids.erase(i);
     }
     endTime = std::chrono::high_resolution_clock::now();
-    std::cout<<std::setw(20) << std::left <<test_size<<std::setw(40) << std::left<< "deletion - <int,int>:"<<std::setw(20) << std::right <<std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(endTime - startTime).count()<<" ms"<<std::endl;
+    std::cout<<std::setw(20) << std::left <<test_size<<std::setw(60) << std::left<< "deletion - <int,int>:"<<std::setw(20) << std::right <<std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(endTime - startTime).count()<<" ms"<<std::endl;
 
     //Deletion performance for simple map <string,int>:
 
@@ -95,7 +95,7 @@ int main()
         orderbook_bids_string.erase(string_vec[i]);
     }
     endTime = std::chrono::high_resolution_clock::now();
-    std::cout<<std::setw(20) << std::left <<test_size<<std::setw(40) << std::left<< "deletion - <string,int>:"<<std::setw(20) << std::right <<std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(endTime - startTime).count()<<" ms"<<std::endl;
+    std::cout<<std::setw(20) << std::left <<test_size<<std::setw(60) << std::left<< "deletion - <string,int>:"<<std::setw(20) << std::right <<std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(endTime - startTime).count()<<" ms"<<std::endl;
 
     //Deletion performance for flat_hash_map:
 
@@ -106,7 +106,7 @@ int main()
         int delete_status = House2.deleteOrder(base_item_ID.c_str(), string_vec[i].c_str());
     }
     endTime = std::chrono::high_resolution_clock::now();
-    std::cout<<std::setw(20) << std::left <<test_size<<std::setw(40) << std::left<< "deletion - AuctionPrices with flat_hash_map:"<<std::setw(20) << std::right <<std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(endTime - startTime).count()<<" ms"<<std::endl;
+    std::cout<<std::setw(20) << std::left <<test_size<<std::setw(60) << std::left<< "deletion - AuctionPrices with flat_hash_map:"<<std::setw(20) << std::right <<std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(endTime - startTime).count()<<" ms"<<std::endl;
 
 
     
@@ -127,7 +127,7 @@ int main()
         orderbook_bids.erase(i);
     }
     endTime = std::chrono::high_resolution_clock::now();
-    std::cout<<std::setw(20) << std::left <<test_size<<std::setw(40) << std::left<< "50:50 - <int, int>:"<<std::setw(20) << std::right <<std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(endTime - startTime).count()<<" ms"<<std::endl;
+    std::cout<<std::setw(20) << std::left <<test_size<<std::setw(60) << std::left<< "50:50 - <int, int>:"<<std::setw(20) << std::right <<std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(endTime - startTime).count()<<" ms"<<std::endl;
 
     //Combined insert-delete <string,int>:
 
@@ -141,7 +141,7 @@ int main()
         orderbook_bids_string.erase(string_vec[i]);
     }
     endTime = std::chrono::high_resolution_clock::now();
-    std::cout<<std::setw(20) << std::left <<test_size<<std::setw(40) << std::left<< "50:50 - <string, int>:"<<std::setw(20) << std::right <<std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(endTime - startTime).count()<<" ms"<<std::endl;
+    std::cout<<std::setw(20) << std::left <<test_size<<std::setw(60) << std::left<< "50:50 - <string, int>:"<<std::setw(20) << std::right <<std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(endTime - startTime).count()<<" ms"<<std::endl;
 
     //COMBINED INSERTION-DELETION performance for flat_hash_map:
 
@@ -157,7 +157,7 @@ int main()
         int delete_status = House3.deleteOrder(base_item_ID.c_str(), string_vec[i].c_str());
     }
     endTime = std::chrono::high_resolution_clock::now();
-    std::cout<<std::setw(20) << std::left <<test_size<<std::setw(40) << std::left<< "50:50 - AuctionPrices with flat_hash_map:"<<std::setw(20) << std::right <<std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(endTime - startTime).count()<<" ms"<<std::endl;
+    std::cout<<std::setw(20) << std::left <<test_size<<std::setw(60) << std::left<< "50:50 - AuctionPrices with flat_hash_map:"<<std::setw(20) << std::right <<std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(endTime - startTime).count()<<" ms"<<std::endl;
 
     return 0;
 }

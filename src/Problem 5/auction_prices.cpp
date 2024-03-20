@@ -98,12 +98,12 @@ int AP::orderbook::print()
     std::sort(price_ordered_bids.begin(),price_ordered_bids.end(), 
                 [](std::pair<int,std::string> p1, std::pair<int,std::string> p2)
                 {
-                    return (p1.second>p2.second);
+                    return (p1.first>p2.first);
                 });
     std::sort(price_ordered_offers.begin(),price_ordered_offers.end(), 
                 [](std::pair<int,std::string> p1, std::pair<int,std::string> p2)
                 {
-                    return (p1.second<p2.second);
+                    return (p1.first<p2.first);
                 });
     
     
