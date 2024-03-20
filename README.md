@@ -1,3 +1,5 @@
+Project was originally written in VSCode 1.87.0, compiled and run on Windows 10 with g++12.2.0. Minimum C++ version required: C++11.
+
 A simple orderbook with 3 basic functions is implemented. The functions are as follows:
 
 1. addNewOrder(...): Adds an order with an item_ID, auction_ID, price and side to the orderbook of the correct item.
@@ -15,7 +17,7 @@ Features of the orderbook with reasoning:
 
 Possible improvements:
 1. It can be noted that the strings item_ID and auction_ID are not random. If the possible values of these strings are known, the hashes could be computed at compile-time, thus reducing the runtime.
-2. In an auction house, prices are going to be in multiples of some base price. For example, in the recent IPL (Indian Premiere League) auctions, the prices were in multiples of INR 500,000, the highest being INR 247,500,000. We can note that in this auction, there were a maximum of 495 different price levels. This opens up the possibility of using a simple data structure with contiguous memory (like an array), where array indexes are equal to (order price)/(base price). This is already exactly what is done in Abseil's flat_hash_map, but it could be further optimised if the exact ranges are available.
+2. In an auction house, prices are going to be in multiples of some base price. For example, in the recent IPL (Indian Premiere League) auctions, the prices were in multiples of INR 500,000, the highest being INR 247,500,000. We can note that in this auction, there were a maximum of 495 different price levels. This opens up the possibility of using a simple data structure with contiguous memory (like an array), where array indexes are equal to (order price)/(base price). This is already similar to what is done in Abseil's flat_hash_map, but it could be further optimised if the exact ranges are available.
 3. Currently, the orderbook is optimised to handle large volumes of orders (in the range of 1 million orders). If the approximate number of orders can be calculated before the start of the auction, it could be further optimised to handle smaller number of orders. For example, in the IPL auction, an small orderbook with 500 to 1000 entires would have been sufficient.
 
 
